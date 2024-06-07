@@ -6,8 +6,9 @@ const loadModel = require("../services/loadModel");
 const InputError = require('../error/InputError.js');
 
 (async () => {
+	const port = process.env.PORT || 3000;
 	const server = Hapi.server({
-		port: process.env.PORT || 3000,
+		port: port,
 		host: process.env.ENVIRONMENT === "production" ? "0.0.0.0" : "localhost",
 		routes: {
 			cors: {
@@ -15,6 +16,8 @@ const InputError = require('../error/InputError.js');
 			},
 		},
 	});
+
+	console.log(`Starting server on port: ${port}`);
 
 	const model = await loadModel();
 	server.app.model = model;
@@ -39,5 +42,5 @@ const InputError = require('../error/InputError.js');
 	  });
 
 	await server.start();
-	console.log(`Server start at: ${server.info.uri}`);
+	console.log(`Server started at: ${server.info.uri}`);
 })();
