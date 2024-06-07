@@ -13,6 +13,8 @@ RUN npm install
 # Copy local code to the container image.
 COPY . .
 
+ENV MODEL_URL='https://storage.googleapis.com/model_mlgc_dicoding/model.json'
+
 RUN npm rebuild @tensorflow/tfjs-node --build-from-source 
 
 # Make port 3000 available to the world outside this container.
