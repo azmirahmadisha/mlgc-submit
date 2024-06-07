@@ -1,6 +1,10 @@
 # Use the official Node.js image.
 FROM node:18
 
+ENV MODEL_URL='https://storage.googleapis.com/model_mlgc_dicoding/model.json'
+ENV NODE_ENV=production
+ENV PORT=8080
+
 # Create and change to the app directory.
 WORKDIR /usr/src/app
 
@@ -12,8 +16,6 @@ RUN npm install
 
 # Copy local code to the container image.
 COPY . .
-
-ENV MODEL_URL='https://storage.googleapis.com/model_mlgc_dicoding/model.json'
 
 RUN npm rebuild @tensorflow/tfjs-node --build-from-source 
 
